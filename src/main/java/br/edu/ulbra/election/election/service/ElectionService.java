@@ -6,6 +6,7 @@ import br.edu.ulbra.election.election.model.Election;
 import br.edu.ulbra.election.election.output.v1.GenericOutput;
 import br.edu.ulbra.election.election.output.v1.ElectionOutput;
 import br.edu.ulbra.election.election.repository.ElectionRepository;
+import br.edu.ulbra.election.election.validations.ValidateStateCode;
 import org.apache.commons.lang.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -102,6 +103,10 @@ public class ElectionService {
         if (StringUtils.isBlank(electionInput.getStateCode())) {
             throw new GenericOutputException("Invalid state code");
         }
+        if(!ValidateStateCode.stateBRExists(electionInput.getStateCode())){
+            throw new GenericOutputException("Invalid state code");
+        }
+
         if (StringUtils.isBlank(electionInput.getDescription())) {
             throw new GenericOutputException("Invalid description");
         }
