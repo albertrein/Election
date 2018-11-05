@@ -106,7 +106,7 @@ public class ElectionService {
         if(!ValidateStateCode.stateBRExists(electionInput.getStateCode())){
             throw new GenericOutputException("Invalid state code");
         }
-
+        
         if (StringUtils.isBlank(electionInput.getDescription())) {
             throw new GenericOutputException("Invalid description");
         }
