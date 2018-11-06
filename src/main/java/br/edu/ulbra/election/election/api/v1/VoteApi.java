@@ -22,4 +22,5 @@ public class VoteApi {
     public GenericOutput multipleElectionVote(@RequestBody List<VoteInput> voteInputList){
         return new GenericOutput("OK");
     }
+
 }
