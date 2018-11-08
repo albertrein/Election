@@ -97,7 +97,7 @@ public class ElectionService {
     }
 
     public void validateInput(ElectionInput electionInput, boolean isUpdate) {
-        if (electionInput.getYear() == null || (electionInput.getYear() >= 2000 && electionInput.getYear() <= 2200)) {
+        if (electionInput.getYear() == null || (electionInput.getYear() < 2000 || electionInput.getYear() >= 2200)) {
             throw new GenericOutputException("Invalid year");
         }
         if (StringUtils.isBlank(electionInput.getStateCode())) {

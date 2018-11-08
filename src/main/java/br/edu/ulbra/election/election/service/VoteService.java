@@ -27,7 +27,7 @@ public class VoteService {
 
     public GenericOutput create(VoteInput electionInput) {
         validateInput(electionInput);
-        modelMapper.getConfiguration().setAmbiguityIgnored(true); /// ?????????????????????????
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
         Vote vote = modelMapper.map(electionInput, Vote.class);
         vote = voteRepository.save(vote);
         return new GenericOutput("OK");
@@ -45,8 +45,6 @@ public class VoteService {
         if (voteInput.getVoterId() == null) {
             throw new GenericOutputException("Invalid Voter");
         }
-
-        // COMO VERIFICAR SE JÁ FOI??
 
     }
 

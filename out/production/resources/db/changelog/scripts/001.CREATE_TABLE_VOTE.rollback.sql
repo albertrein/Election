@@ -1,1 +1,1 @@
-DROP TABLE vote;
+drop table vote;
