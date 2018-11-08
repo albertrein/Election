@@ -25,7 +25,7 @@ public class VoteService {
         this.modelMapper = modelMapper;
     }
 
-    public GenericOutput create(VoteInput electionInput) {
+    public GenericOutput electionVote(VoteInput electionInput) {
         validateInput(electionInput);
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
         Vote vote = modelMapper.map(electionInput, Vote.class);
@@ -34,8 +34,8 @@ public class VoteService {
     }
 
     public void validateInput(VoteInput voteInput) {
-        if (voteInput.getCandidateId() == null) {
-            throw new GenericOutputException("Invalid CandidateId");
+        if (voteInput.getCandidateNumber() == null) {
+            throw new GenericOutputException("Invalid CandidateNumber");
         }
 
         if (voteInput.getElectionId() == null) {
