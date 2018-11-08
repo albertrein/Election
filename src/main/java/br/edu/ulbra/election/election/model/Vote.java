@@ -47,7 +47,7 @@ public class Vote {
         return candidateNumber;
     }
 
-    public void setCandidateNumber(Long candidateId) {
-        this.candidateNumber = candidateId;
+    public void setCandidateNumber(Long candidateNumber) {
+        this.candidateNumber = candidateNumber;
     }
 }
