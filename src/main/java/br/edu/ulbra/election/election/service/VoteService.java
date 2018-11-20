@@ -2,50 +2,67 @@ package br.edu.ulbra.election.election.service;
 
 import br.edu.ulbra.election.election.exception.GenericOutputException;
 import br.edu.ulbra.election.election.input.v1.VoteInput;
+import br.edu.ulbra.election.election.model.Election;
 import br.edu.ulbra.election.election.model.Vote;
 import br.edu.ulbra.election.election.output.v1.GenericOutput;
+import br.edu.ulbra.election.election.repository.ElectionRepository;
 import br.edu.ulbra.election.election.repository.VoteRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class VoteService {
 
-    private VoteRepository voteRepository;
+    private final VoteRepository voteRepository;
 
-    private final ModelMapper modelMapper;
-
-    private static final String MESSAGE_INVALID_ID = "Invalid id";
-    private static final String MESSAGE_ELECTION_NOT_FOUND = "Voter not found";
+    private final ElectionRepository electionRepository;
 
     @Autowired
-    public VoteService(VoteRepository voteRepository, ModelMapper modelMapper){ //constructor
+    public VoteService(VoteRepository voteRepository, ElectionRepository electionRepository){
         this.voteRepository = voteRepository;
-        this.modelMapper = modelMapper;
+        this.electionRepository = electionRepository;
     }
 
-    public GenericOutput electionVote(VoteInput electionInput) {
-        validateInput(electionInput);
-        modelMapper.getConfiguration().setAmbiguityIgnored(true);
-        Vote vote = modelMapper.map(electionInput, Vote.class);
-        vote = voteRepository.save(vote);
+    public GenericOutput electionVote(VoteInput voteInput){
+
+        Election election = validateInput(voteInput.getElectionId(), voteInput);
+        Vote vote = new Vote();
+        vote.setElection(election);
+        vote.setVoterId(voteInput.getVoterId());
+
+        if (voteInput.getCandidateNumber() == null){
+            vote.setBlankVote(true);
+        } else {
+            vote.setBlankVote(false);
+        }
+
+        // TODO: Validate null candidate
+        vote.setNullVote(false);
+
+        voteRepository.save(vote);
+
         return new GenericOutput("OK");
     }
 
-    public void validateInput(VoteInput voteInput) {
-        if (voteInput.getCandidateNumber() == null) {
-            throw new GenericOutputException("Invalid CandidateNumber");
+    public GenericOutput multiple(List<VoteInput> voteInputList){
+        for (VoteInput voteInput : voteInputList){
+            this.electionVote(voteInput);
         }
-
-        if (voteInput.getElectionId() == null) {
-            throw new GenericOutputException("Invalid ElectionId");
-        }
-
-        if (voteInput.getVoterId() == null) {
-            throw new GenericOutputException("Invalid Voter");
-        }
-
+        return new GenericOutput("OK");
     }
 
+    public Election validateInput(Long electionId, VoteInput voteInput){
+        Election election = electionRepository.findById(electionId).orElse(null);
+        if (election == null){
+            throw new GenericOutputException("Invalid Election");
+        }
+        if (voteInput.getVoterId() == null){
+            throw new GenericOutputException("Invalid Voter");
+        }
+        // TODO: Validate voter
+
+        return election;
+    }
 }
