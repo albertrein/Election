@@ -25,8 +25,8 @@ public class VoterClientService {
     @FeignClient(value="voter-service", url="http://localhost:8081")
     private interface VoterClient {
 
-        @GetMapping("/v1/party/{partyId}")
-        VoterOutput getById(@PathVariable(name = "partyId") Long partyId);
+        @GetMapping("/v1/voter/{voterId}")
+        VoterOutput getById(@PathVariable(name = "voterId") Long voterId);
     }
 
 }

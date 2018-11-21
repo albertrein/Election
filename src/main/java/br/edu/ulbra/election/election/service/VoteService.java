@@ -67,9 +67,9 @@ public class VoteService {
         }
 
         // TODO: Validate voter
-        try{ // Validanting voter, if voter exists
-            VoterOutput voterOutput = voterClientService.getById(voteInput.getVoterId());
-            if(voterOutput == null){
+        try{ // try do feign
+            VoterOutput voterOutput = voterClientService.getById(voteInput.getVoterId()); //retornando um voter pelo id
+            if(voterOutput == null){ // Se for nulo significa que o voter não existe
                 throw new GenericOutputException("Invalid Voter");
             }
         } catch (FeignException e){
@@ -77,7 +77,6 @@ public class VoteService {
                 throw new GenericOutputException("Invalid Voter");
             }
         }
-
 
         if(electionRepository.getElectionById(voteInput.getElectionId()) == null){ //Retornando uma eleição pelo id, verificando se uma elição existe
             throw new GenericOutputException("Invalid Election");
