@@ -73,6 +73,10 @@ public class ElectionService {
             throw new GenericOutputException(MESSAGE_ELECTION_NOT_FOUND);
         }
 
+        if(voteRepository.getVoteByElection(election) != null){ //retornando um voto pela elição
+            throw new GenericOutputException("Election already have votes");
+        }
+
         election.setStateCode(electionInput.getStateCode());
         election.setDescription(electionInput.getDescription());
         election.setYear(electionInput.getYear());
