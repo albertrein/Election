@@ -65,6 +65,23 @@ public class ElectionService {
         return modelMapper.map(election, ElectionOutput.class);
     }
 
+    public ElectionOutput getElectionValidateById(Long electionId){
+        if (electionId == null){
+            throw new GenericOutputException(MESSAGE_INVALID_ID);
+        }
+
+        Election election = electionRepository.findById(electionId).orElse(null);
+        if (election == null){
+            throw new GenericOutputException(MESSAGE_ELECTION_NOT_FOUND);
+        }
+
+        if (voteRepository.getVoteByElection(election) != null) { //retornando um voto pela eleição
+            throw new GenericOutputException("Election already have votes");
+        }
+
+        return modelMapper.map(election, ElectionOutput.class);
+    }
+
     public ElectionOutput update(Long electionId, ElectionInput electionInput) {
         if (electionId == null){
             throw new GenericOutputException(MESSAGE_INVALID_ID);
