@@ -21,10 +21,21 @@ public class CandidateClientService {
         return this.candidateClient.getCandidateByElectionId(id);
     }
 
+    public CandidateOutput getCandidateByNumberElection(Long numberElection) {
+        return this.candidateClient.getCandidateByElectionId(numberElection);
+    }
+
     @FeignClient(value="candidate-service", url="http://localhost:8082")
     private interface CandidateClient {
 
         @GetMapping("/v1/candidate/{electionId}")
-        CandidateOutput getCandidateByElectionId(@PathVariable(name = "candidateId") Long electionId);
+        CandidateOutput getCandidateByElectionId(@PathVariable(name = "electionId") Long electionId);
+
+        @GetMapping("/v1/candidate/election/{numberElection}")
+        CandidateOutput getCandidateByNumberElection(@PathVariable(name = "numberElection") Long numberElection);
+
+
     }
+
+
 }

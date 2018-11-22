@@ -1,10 +1,12 @@
 package br.edu.ulbra.election.election.service;
 
+import br.edu.ulbra.election.election.client.CandidateClientService;
 import br.edu.ulbra.election.election.client.VoterClientService;
 import br.edu.ulbra.election.election.exception.GenericOutputException;
 import br.edu.ulbra.election.election.input.v1.VoteInput;
 import br.edu.ulbra.election.election.model.Election;
 import br.edu.ulbra.election.election.model.Vote;
+import br.edu.ulbra.election.election.output.v1.CandidateOutput;
 import br.edu.ulbra.election.election.output.v1.GenericOutput;
 import br.edu.ulbra.election.election.output.v1.VoterOutput;
 import br.edu.ulbra.election.election.repository.ElectionRepository;
@@ -22,11 +24,14 @@ public class VoteService {
 
     private final ElectionRepository electionRepository;
     private final VoterClientService voterClientService;
+    private final CandidateClientService candidateClientService;
     @Autowired
-    public VoteService(VoteRepository voteRepository, ElectionRepository electionRepository, VoterClientService voterClientService){
+
+    public VoteService(VoteRepository voteRepository, ElectionRepository electionRepository, VoterClientService voterClientService, CandidateClientService candidateClientService){
         this.voteRepository = voteRepository;
         this.electionRepository = electionRepository;
         this.voterClientService = voterClientService;
+        this.candidateClientService = candidateClientService;
     }
 
     public GenericOutput electionVote(VoteInput voteInput){
@@ -42,8 +47,18 @@ public class VoteService {
             vote.setBlankVote(false);
         }
 
-        // TODO: Validate null candidate
         vote.setNullVote(false);
+
+        try{
+            CandidateOutput candidateOutput = candidateClientService.getCandidateByNumberElection(voteInput.getCandidateNumber());
+            if(candidateOutput == null){
+                vote.setNullVote(true);
+            }
+        } catch (FeignException e){
+            if (e.status() == 500) {
+                throw new GenericOutputException("Invalid Voter");
+            }
+        }
 
         voteRepository.save(vote);
 
@@ -66,7 +81,20 @@ public class VoteService {
             throw new GenericOutputException("Invalid Voter");
         }
 
-        // TODO: Validate voter
+
+        try{ // try do feign
+            // TODO: Validate voter
+            VoterOutput voterOutput = voterClientService.getById(voteInput.getVoterId()); //retornando um voter pelo id
+            if(voterOutput == null){ // Se for nulo significa que o voter não existe
+                throw new GenericOutputException("Invalid Voter");
+            }
+        } catch (FeignException e){
+            if (e.status() == 500) {
+                throw new GenericOutputException("Invalid Voter");
+            }
+        }
+
+
         try{ // try do feign
             VoterOutput voterOutput = voterClientService.getById(voteInput.getVoterId()); //retornando um voter pelo id
             if(voterOutput == null){ // Se for nulo significa que o voter não existe
