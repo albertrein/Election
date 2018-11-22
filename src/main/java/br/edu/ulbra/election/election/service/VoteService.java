@@ -7,6 +7,7 @@ import br.edu.ulbra.election.election.input.v1.VoteInput;
 import br.edu.ulbra.election.election.model.Election;
 import br.edu.ulbra.election.election.model.Vote;
 import br.edu.ulbra.election.election.output.v1.CandidateOutput;
+import br.edu.ulbra.election.election.output.v1.ElectionOutput;
 import br.edu.ulbra.election.election.output.v1.GenericOutput;
 import br.edu.ulbra.election.election.output.v1.VoterOutput;
 import br.edu.ulbra.election.election.repository.ElectionRepository;
@@ -32,6 +33,22 @@ public class VoteService {
         this.electionRepository = electionRepository;
         this.voterClientService = voterClientService;
         this.candidateClientService = candidateClientService;
+    }
+
+    public GenericOutput getById(Long id){
+        if (id == null){
+            throw new GenericOutputException("Invalid Id");
+        }
+
+        Vote vote = voteRepository.getVoteById(id);
+        GenericOutput genericOutput;
+        if (vote == null){
+            genericOutput = null;
+        }else{
+            genericOutput = new GenericOutput(vote.toString());
+        }
+
+        return genericOutput;
     }
 
     public GenericOutput electionVote(VoteInput voteInput){

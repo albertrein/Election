@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="388ea1dd-2987-4c18-9ede-098fbb592914" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/client/CandidateClientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/client/CandidateClientService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/api/v1/VoteApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/api/v1/VoteApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/repository/VoteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/repository/VoteRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/service/VoteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/service/VoteService.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -80,26 +81,26 @@
         <counts>
           <entry key="gradle" value="5" />
           <entry key="gradlew" value="1" />
-          <entry key="java" value="107" />
+          <entry key="java" value="116" />
           <entry key="sql" value="14" />
           <entry key="yaml" value="4" />
-          <entry key="yml" value="6" />
+          <entry key="yml" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Groovy" value="5" />
-          <entry key="JAVA" value="107" />
+          <entry key="JAVA" value="116" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="SQL" value="14" />
-          <entry key="YAML" value="10" />
+          <entry key="YAML" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="7" />
           <entry key="gradle" value="1" />
-          <entry key="java" value="3311" />
+          <entry key="java" value="3576" />
           <entry key="sql" value="106" />
           <entry key="yaml" value="49" />
           <entry key="yml" value="1" />
@@ -108,7 +109,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Groovy" value="1" />
-          <entry key="JAVA" value="3311" />
+          <entry key="JAVA" value="3576" />
           <entry key="PLAIN_TEXT" value="7" />
           <entry key="SQL" value="106" />
           <entry key="YAML" value="50" />
@@ -160,49 +161,55 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/service/VoteService.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/service/ElectionService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="49" column="32" selection-start-line="49" selection-start-column="32" selection-end-line="49" selection-end-column="32" />
+            <state relative-caret-position="183">
+              <caret line="107" column="11" selection-start-line="105" selection-start-column="10" selection-end-line="109" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/input/v1/VoteInput.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/api/v1/VoteApi.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/client/CandidateClientService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="23" column="19" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
+            <state relative-caret-position="295">
+              <caret line="36" column="24" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="24" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#1211#1212#0" expanded="true" />
+                <element signature="e#1285#1286#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/model/Vote.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/service/VoteService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="42" column="21" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
+            <state relative-caret-position="270">
+              <caret line="49" selection-start-line="49" selection-end-line="49" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/model/Election.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/repository/VoteRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="29" />
+            <state relative-caret-position="120">
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/api/v1/ElectionApi.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="38" column="33" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="33" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1267#1268#0" expanded="true" />
+                <element signature="e#1325#1326#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -224,7 +231,9 @@
       <find>voteRepository</find>
       <find>party</find>
       <find>getBy</find>
+      <find>getResultByCandidate</find>
       <find>getById</find>
+      <find>get</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -605,20 +614,20 @@
         <option value="$PROJECT_DIR$/src/main/resources/db/changelog/scripts/001.CREATE_TABLE_VOTER.rollback.sql" />
         <option value="$PROJECT_DIR$/src/main/resources/db/changelog/scripts/001.CREATE_TABLE.VOTE.sql" />
         <option value="$PROJECT_DIR$/src/main/resources/db/changelog/scripts/001.CREATE_TABLE_VOTE.rollback.sql" />
-        <option value="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/api/v1/VoteApi.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/model/Vote.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/input/v1/VoteInput.java" />
         <option value="$PROJECT_DIR$/src/main/resources/application.yml" />
         <option value="$PROJECT_DIR$/src/main/resources/db/changelog/db.changelog-master.yaml" />
         <option value="$PROJECT_DIR$/src/main/resources/db/changelog/scripts/001.CREATE_TABLE_VOTE.sql" />
         <option value="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/output/v1/VoterOutput.java" />
-        <option value="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/repository/VoteRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/repository/ElectionRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/client/VoterClientService.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/service/ElectionService.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/ElectionApplication.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/api/v1/ElectionApi.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/client/CandidateClientService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/api/v1/VoteApi.java" />
+        <option value="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/repository/VoteRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/service/VoteService.java" />
       </list>
     </option>
@@ -732,6 +741,15 @@
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="election" type="462c0819:PsiDirectoryNode" />
+              <item name="v1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="election" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Election" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="election" type="462c0819:PsiDirectoryNode" />
               <item name="repository" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -742,6 +760,13 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="election" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="election" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Election" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -759,7 +784,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542852300219" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542858538853" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Voter" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -823,12 +848,12 @@
       <workItem from="1542676156138" duration="1621000" />
       <workItem from="1542705416120" duration="591000" />
       <workItem from="1542799296757" duration="23323000" />
-      <workItem from="1542840106199" duration="6473000" />
+      <workItem from="1542840106199" duration="9166000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="98299000" />
+    <option name="totallyTimeSpent" value="100992000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="41" y="25" width="1399" height="875" extended-state="6" />
@@ -844,7 +869,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Inspection Results" weight="0.32885906" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32885906" />
+      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.32885906" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49963045" weight="0.40939596" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -973,24 +998,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
           <caret line="38" column="12" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/output/v1/GenericOutput.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
         </state>
       </provider>
     </entry>
@@ -1008,27 +1019,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/api/v1/VoteApi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/api/v1/ResultApi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/repository/VoteRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -1057,18 +1047,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/api/v1/ElectionApi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="42" column="26" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1267#1268#0" expanded="true" />
-            <element signature="e#1325#1326#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1103,27 +1081,78 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/service/ElectionService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/output/v1/GenericOutput.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="64" />
+        <state relative-caret-position="75">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/client/CandidateClientService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="23" column="19" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
+        <state relative-caret-position="180">
+          <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="37" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/api/v1/ResultApi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="21" column="5" lean-forward="true" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/api/v1/ElectionApi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="38" column="33" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1267#1268#0" expanded="true" />
+            <element signature="e#1325#1326#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/repository/VoteRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/service/VoteService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="49" column="32" selection-start-line="49" selection-start-column="32" selection-end-line="49" selection-end-column="32" />
+        <state relative-caret-position="270">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/api/v1/VoteApi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="36" column="24" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="24" />
+          <folding>
+            <element signature="e#1211#1212#0" expanded="true" />
+            <element signature="e#1285#1286#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/edu/ulbra/election/election/service/ElectionService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="107" column="11" selection-start-line="105" selection-start-column="10" selection-end-line="109" selection-end-column="9" />
         </state>
       </provider>
     </entry>

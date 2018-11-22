@@ -7,4 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface VoteRepository extends CrudRepository<Vote, Long> {
     Vote getVoteByElection(Election election);
+    Vote getVoteById(Long id);
 }
