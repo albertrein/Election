@@ -1,7 +1,6 @@
 package br.edu.ulbra.election.election.api.v1;
 
 import br.edu.ulbra.election.election.input.v1.VoteInput;
-import br.edu.ulbra.election.election.output.v1.ElectionOutput;
 import br.edu.ulbra.election.election.output.v1.GenericOutput;
 import br.edu.ulbra.election.election.service.VoteService;
 import io.swagger.annotations.ApiOperation;
@@ -9,9 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/v1/vote")
 public class VoteApi {
 
@@ -32,9 +32,15 @@ public class VoteApi {
         return voteService.multiple(voteInputList);
     }
 
-    @GetMapping("/voteId")
-    @ApiOperation(value = "Get by Id")
-    public GenericOutput getById(@PathVariable Long id){
-        return voteService.getById(id);
+    @GetMapping("/getvote/{electionId}")
+    @ApiOperation(value = "Get votes by ElectionId")
+    public Long countVotesByElectionId(@PathVariable Long electionId){
+        return voteService.countVotesByElectionId(electionId);
+    }
+
+    @GetMapping("/voter/{voterId}")
+    @ApiOperation(value = "Get count votes by voterId")
+    public Long countVotesByVoterId(@PathVariable Long voterId){
+        return voteService.countVotesByVoterId(voterId);
     }
 }

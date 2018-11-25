@@ -23,16 +23,16 @@ import java.util.List;
 public class ElectionService {
 
     private final ElectionRepository electionRepository;
-    private final ModelMapper modelMapper;
     private final VoteRepository voteRepository;
     private final CandidateClientService candidateClientService;
-    
+    private final ModelMapper modelMapper;
+
     @Autowired
-    public ElectionService(ElectionRepository electionRepository, ModelMapper modelMapper, VoteRepository voteRepository, CandidateClientService candidateClientService){
+    public ElectionService(ElectionRepository electionRepository, VoteRepository voteRepository, CandidateClientService candidateClientService, ModelMapper modelMapper){
         this.electionRepository = electionRepository;
-        this.modelMapper = modelMapper;
         this.voteRepository = voteRepository;
         this.candidateClientService = candidateClientService;
+        this.modelMapper = modelMapper;
     }
 
 
@@ -65,23 +65,6 @@ public class ElectionService {
         return modelMapper.map(election, ElectionOutput.class);
     }
 
-    public ElectionOutput getElectionValidateById(Long electionId){
-        if (electionId == null){
-            throw new GenericOutputException(MESSAGE_INVALID_ID);
-        }
-
-        Election election = electionRepository.findById(electionId).orElse(null);
-        if (election == null){
-            throw new GenericOutputException(MESSAGE_ELECTION_NOT_FOUND);
-        }
-
-        if (voteRepository.getVoteByElection(election) != null) { //retornando um voto pela eleição
-            throw new GenericOutputException("Election already have votes");
-        }
-
-        return modelMapper.map(election, ElectionOutput.class);
-    }
-
     public ElectionOutput update(Long electionId, ElectionInput electionInput) {
         if (electionId == null){
             throw new GenericOutputException(MESSAGE_INVALID_ID);
@@ -93,22 +76,8 @@ public class ElectionService {
         if (election == null){
             throw new GenericOutputException(MESSAGE_ELECTION_NOT_FOUND);
         }
-
-        if(voteRepository.getVoteByElection(election) != null){ //retornando um voto pela eleição
-            throw new GenericOutputException("Election already have votes");
-        }
-
-        try {
-            if(candidateClientService.getCandidateByElectionId(electionId) != null){
-                throw new GenericOutputException("Already have Candidates linked");
-            }
-
-        } catch (FeignException e) {
-            if (e.status() == 500) {
-                throw new GenericOutputException("Invalid Election");
-            }
-        }
-
+        validateElectionVotes(electionId);
+        candidateCountByElectionId(electionId);
         election.setStateCode(electionInput.getStateCode());
         election.setDescription(electionInput.getDescription());
         election.setYear(electionInput.getYear());
@@ -117,30 +86,17 @@ public class ElectionService {
     }
 
     public GenericOutput delete(Long electionId) {
-        if (electionId == null) {
+        if (electionId == null){
             throw new GenericOutputException(MESSAGE_INVALID_ID);
         }
 
         Election election = electionRepository.findById(electionId).orElse(null);
-        if (election == null) {
+        if (election == null){
             throw new GenericOutputException(MESSAGE_ELECTION_NOT_FOUND);
         }
 
-        if (voteRepository.getVoteByElection(election) != null) { //retornando um voto pela eleição
-            throw new GenericOutputException("Election already have votes");
-        }
-
-        try {
-            if(candidateClientService.getCandidateByElectionId(electionId) != null){
-                throw new GenericOutputException("Already have Candidates linked");
-            }
-
-        } catch (FeignException e) {
-            if (e.status() == 500) {
-                throw new GenericOutputException("Invalid Election");
-            }
-        }
-
+        validateElectionVotes(electionId);
+        candidateCountByElectionId(electionId);
         electionRepository.delete(election);
 
         return new GenericOutput("Election deleted");
@@ -167,6 +123,29 @@ public class ElectionService {
         }
         if (electionInput.getYear() == null || electionInput.getYear() < 2000 || electionInput.getYear() > 2200){
             throw new GenericOutputException("Invalid Year");
+        }
+    }
+
+    private void validateElectionVotes(Long electionId){
+        // Verificando se a eleição possui votos.
+        if(voteRepository.countByElection_Id(electionId) > 0){
+            throw new GenericOutputException("Invalid operation. Election already have votes");
+        }
+    }
+
+    private void candidateCountByElectionId(Long electionId){
+        //Verificando se exite candidatos na eleição
+        try{
+            if(candidateClientService.getCountElectionById(electionId) > 0){
+                throw new GenericOutputException("Election already have candidates");
+            }
+        }catch(FeignException e){
+            if(e.status() == 0){
+                throw new GenericOutputException("Candidate not found");
+            }
+            if(e.status() == 500){
+                throw new GenericOutputException("Invalid Candidate");
+            }
         }
     }
 

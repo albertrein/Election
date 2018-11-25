@@ -40,12 +40,6 @@ public class ElectionApi {
         return electionService.getById(electionId);
     }
 
-    @GetMapping("/validate/{electionId}")
-    @ApiOperation(value = "Get election validated by Id")
-    public ElectionOutput getElectionValidateById(@PathVariable Long electionId){
-        return electionService.getElectionValidateById(electionId);
-    }
-
     @PostMapping("/")
     @ApiOperation(value = "Create new election")
     public ElectionOutput create(@RequestBody ElectionInput electionInput){

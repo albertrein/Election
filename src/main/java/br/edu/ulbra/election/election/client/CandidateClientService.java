@@ -1,7 +1,6 @@
 package br.edu.ulbra.election.election.client;
 
 import br.edu.ulbra.election.election.output.v1.CandidateOutput;
-import br.edu.ulbra.election.election.output.v1.VoterOutput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
@@ -13,29 +12,27 @@ public class CandidateClientService {
     private final CandidateClient candidateClient;
 
     @Autowired
-    public CandidateClientService(CandidateClient candidateClient){
+    public CandidateClientService(CandidateClient candidateClient) {
         this.candidateClient = candidateClient;
     }
 
-    public CandidateOutput getCandidateByElectionId(Long id) {
-        return this.candidateClient.getCandidateByElectionId(id);
+    public Long getCountElectionById(Long electionId){
+        return this.candidateClient.getCountElectionById(electionId);
     }
 
-    public CandidateOutput getCandidateByNumberElection(Long numberElection) {
-        return this.candidateClient.getCandidateByElectionId(numberElection);
+    public Long getCandidateByCandidateNumber(Long candidateNumber){
+        return this.candidateClient.getCandidateByCandidateNumber(candidateNumber);
     }
+
 
     @FeignClient(value="candidate-service", url="http://localhost:8082")
-    private interface CandidateClient {
+    public interface CandidateClient{
 
-        @GetMapping("/v1/candidate/{electionId}")
-        CandidateOutput getCandidateByElectionId(@PathVariable(name = "electionId") Long electionId);
+        @GetMapping("/v1/candidate/election/{electionId}")
+        Long getCountElectionById(@PathVariable(name = "electionId") Long electionId);
 
-        @GetMapping("/v1/candidate/election/{numberElection}")
-        CandidateOutput getCandidateByNumberElection(@PathVariable(name = "numberElection") Long numberElection);
-
+        @GetMapping("/v1/candidate/candidatenumber/{candidateNumber}")
+        Long getCandidateByCandidateNumber(@PathVariable(name = "candidateNumber") Long candidateNumber);
 
     }
-
-
 }
