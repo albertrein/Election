@@ -49,8 +49,11 @@ public class VoteService {
         //Validando voto nulo
         vote.setNullVote(false);
         try{
-            if(candidateClientService.getCandidateByCandidateNumber(voteInput.getCandidateNumber()) == 0){
+            Long candidateId = candidateClientService.getCandidateIdByCandidateNumber(voteInput.getCandidateNumber());
+            if(candidateId == null){
                 vote.setNullVote(true);
+            }else{
+                vote.setCandidateId(candidateId); //CandidateID recebe o ID do candidato
             }
         }catch (FeignException e){
             if(e.status() == 0){
@@ -65,6 +68,7 @@ public class VoteService {
         System.out.println("Voter Id: "+vote.getVoterId());
         System.out.println("VOTO NULO: "+vote.getNullVote());
         System.out.println("VOTO BRANCO: "+vote.getBlankVote());
+        System.out.println("VOTO Candidato: "+vote.getCandidateId());
         System.out.println("***********************************");
 
         voteRepository.save(vote);
