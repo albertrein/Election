@@ -1,6 +1,7 @@
 package br.edu.ulbra.election.election.service;
 
 import br.edu.ulbra.election.election.client.CandidateClientService;
+import br.edu.ulbra.election.election.exception.GenericOutputException;
 import br.edu.ulbra.election.election.model.Vote;
 import br.edu.ulbra.election.election.output.v1.ElectionCandidateResultOutput;
 import br.edu.ulbra.election.election.output.v1.ResultOutput;
@@ -8,6 +9,7 @@ import br.edu.ulbra.election.election.output.v1.VoteOutput;
 import br.edu.ulbra.election.election.output.v1.VoterOutput;
 import br.edu.ulbra.election.election.repository.ElectionRepository;
 import br.edu.ulbra.election.election.repository.VoteRepository;
+import feign.FeignException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -59,14 +61,22 @@ public class ResultService {
         resultOutput.setNullVotes(nullVotesTotal);
         resultOutput.setBlankVotes(blanckVotesTotal);
         resultOutput.setCandidates(valideVotes);
-        resultOutput.setTotalVotes(Long.valueOf(list.size()));
+        resultOutput.setTotalVotes((long) list.size());
         return resultOutput;
     }
 
     public ElectionCandidateResultOutput getResultByCandidate(Long candidateId){
         ElectionCandidateResultOutput electionCandidateResultOutput = new ElectionCandidateResultOutput();
 
-        electionCandidateResultOutput.setCandidate(candidateClientService.getById(candidateId));
+        try{
+            electionCandidateResultOutput.setCandidate(candidateClientService.getById(candidateId));
+        }catch (FeignException e){
+            if(e.status() == 500){
+                throw new GenericOutputException(e.getMessage());
+            }else if(e.status() == 0){
+                throw new GenericOutputException("Candidate Not Found");
+            }
+        }
 
         electionCandidateResultOutput.setTotalVotes(voteRepository.countVoteByCandidateId(candidateId));
         return electionCandidateResultOutput;
