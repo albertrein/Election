@@ -39,21 +39,21 @@ public class VoteService {
         vote.setElection(election);
         vote.setVoterId(voteInput.getVoterId());
 
-    //Validando voto do eleitor
+    //validating voter's vote
         if (voteInput.getCandidateNumber() == null){
             vote.setBlankVote(true);
         } else {
             vote.setBlankVote(false);
         }
 
-        //Validando voto nulo
+        //validating null
         vote.setNullVote(false);
         try{
             Long candidateId = candidateClientService.getCandidateIdByCandidateNumber(voteInput.getCandidateNumber());
             if(candidateId == null){
                 vote.setNullVote(true);
             }else{
-                vote.setCandidateId(candidateId); //CandidateID recebe o ID do candidato
+                vote.setCandidateId(candidateId); //CandidateID receives the candidate ID
             }
         }catch (FeignException e){
             if(e.status() == 0){
@@ -63,7 +63,7 @@ public class VoteService {
                 throw new GenericOutputException("Valor Invalido");
             }
         }
-        //Fim da validação do voto
+        //end of vote validation
         System.out.println("***********************************");
         System.out.println("Voter Id: "+vote.getVoterId());
         System.out.println("VOTO NULO: "+vote.getNullVote());
@@ -102,13 +102,13 @@ public class VoteService {
             throw new GenericOutputException("Invalid Voter");
         }
 
-    //Vinculando um eleitor válido e uma eleição válida
-        //Validando Eleição
+    //binding a valid voter and a valid election
+        //Validating election
         Election election = electionRepository.findById(electionId).orElse(null);
         if (election == null){
             throw new GenericOutputException("Invalid Election");
         }
-        //Validando Eleitor[Voter]
+        //Validating voter
         try{
             VoterOutput voterOutput = voterClientService.getById(voteInput.getVoterId());
             if(voterClientService.getById(voteInput.getVoterId()) == null){
@@ -122,7 +122,7 @@ public class VoteService {
                 throw new GenericOutputException("Invalid Voter");
             }
         }
-    //Fim da vinculação do eleitor e eleição
+    //End of the voter´s bonding and election
 
         return election;
     }
