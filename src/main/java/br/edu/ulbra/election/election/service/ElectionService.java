@@ -1,7 +1,6 @@
 package br.edu.ulbra.election.election.service;
 
 import br.edu.ulbra.election.election.client.CandidateClientService;
-import br.edu.ulbra.election.election.enums.StateCodes;
 import br.edu.ulbra.election.election.exception.GenericOutputException;
 import br.edu.ulbra.election.election.input.v1.ElectionInput;
 import br.edu.ulbra.election.election.model.Election;
@@ -9,6 +8,7 @@ import br.edu.ulbra.election.election.output.v1.ElectionOutput;
 import br.edu.ulbra.election.election.output.v1.GenericOutput;
 import br.edu.ulbra.election.election.repository.ElectionRepository;
 import br.edu.ulbra.election.election.repository.VoteRepository;
+import br.edu.ulbra.election.election.validations.ValidateStateCode;
 import feign.FeignException;
 import org.apache.commons.lang.StringUtils;
 import org.modelmapper.ModelMapper;
@@ -116,25 +116,25 @@ public class ElectionService {
         if (StringUtils.isBlank(electionInput.getStateCode())){
             throw new GenericOutputException("Invalid State Code");
         }
-        try {
-             StateCodes.valueOf(electionInput.getStateCode());
-        } catch (IllegalArgumentException e){
-            throw new GenericOutputException("Invalid State Code");
+
+        if(!ValidateStateCode.stateBRExists(electionInput.getStateCode())){
+            throw new GenericOutputException("Invalid state code");
         }
+
         if (electionInput.getYear() == null || electionInput.getYear() < 2000 || electionInput.getYear() > 2200){
             throw new GenericOutputException("Invalid Year");
         }
     }
 
     private void validateElectionVotes(Long electionId){
-        // Verificando se a eleição possui votos.
+        // checking if the election has votes
         if(voteRepository.countByElection_Id(electionId) > 0){
             throw new GenericOutputException("Invalid operation. Election already have votes");
         }
     }
 
     private void candidateCountByElectionId(Long electionId){
-        //Verificando se exite candidatos na eleição
+        //Verifying if there are candidates in the election
         try{
             if(candidateClientService.getCountElectionById(electionId) > 0){
                 throw new GenericOutputException("Election already have candidates");
