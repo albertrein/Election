@@ -2,11 +2,9 @@ package br.edu.ulbra.election.election.service;
 
 import br.edu.ulbra.election.election.client.CandidateClientService;
 import br.edu.ulbra.election.election.exception.GenericOutputException;
+import br.edu.ulbra.election.election.model.Election;
 import br.edu.ulbra.election.election.model.Vote;
-import br.edu.ulbra.election.election.output.v1.ElectionCandidateResultOutput;
-import br.edu.ulbra.election.election.output.v1.ResultOutput;
-import br.edu.ulbra.election.election.output.v1.VoteOutput;
-import br.edu.ulbra.election.election.output.v1.VoterOutput;
+import br.edu.ulbra.election.election.output.v1.*;
 import br.edu.ulbra.election.election.repository.ElectionRepository;
 import br.edu.ulbra.election.election.repository.VoteRepository;
 import feign.FeignException;
@@ -32,15 +30,16 @@ public class ResultService {
 
     public ResultOutput getResultByElection(Long electionId){
         ResultOutput resultOutput = new ResultOutput();
+        if(electionId == null){
+            throw new GenericOutputException("Invalid Election Id");
+        }
+        Election election = electionRepository.findElectionById(electionId);
 
         List<Vote> list = voteRepository.getAllByElection_Id(electionId);
         List<ElectionCandidateResultOutput> valideVotes = new ArrayList<>();
         long blanckVotesTotal = 0, nullVotesTotal = 0;
 
-
-
         ArrayList<Long> candidatesVerify = new ArrayList<>();
-
 
         for(Vote vote : list){
             if(vote.getCandidateId() == null){
@@ -57,7 +56,7 @@ public class ResultService {
                 }
             }
         }
-
+        resultOutput.setElection(modelMapper.map(election, ElectionOutput.class));
         resultOutput.setNullVotes(nullVotesTotal);
         resultOutput.setBlankVotes(blanckVotesTotal);
         resultOutput.setCandidates(valideVotes);
@@ -67,6 +66,9 @@ public class ResultService {
 
     public ElectionCandidateResultOutput getResultByCandidate(Long candidateId){
         ElectionCandidateResultOutput electionCandidateResultOutput = new ElectionCandidateResultOutput();
+        if(candidateId == null){
+            throw new GenericOutputException("Invalid candidateId");
+        }
 
         try{
             electionCandidateResultOutput.setCandidate(candidateClientService.getById(candidateId));

@@ -33,7 +33,7 @@ public class VoteService {
         this.candidateClientService = candidateClientService;
     }
 
-    public GenericOutput electionVote(VoteInput voteInput){
+    public GenericOutput electionVote(VoteInput voteInput, String token){
         Election election = validateInput(voteInput.getElectionId(), voteInput);
         Vote vote = new Vote();
         vote.setElection(election);
@@ -60,7 +60,7 @@ public class VoteService {
                 throw new GenericOutputException("Candidate not found");
             }
             if(e.status() == 500){
-                throw new GenericOutputException("Valor Invalido");
+                throw new GenericOutputException("Invalid Value");
             }
         }
         //Fim da validação do voto
@@ -76,9 +76,9 @@ public class VoteService {
         return new GenericOutput("OK");
     }
 
-    public GenericOutput multiple(List<VoteInput> voteInputList){
+    public GenericOutput multiple(List<VoteInput> voteInputList, String token){
         for (VoteInput voteInput : voteInputList){
-            this.electionVote(voteInput);
+            this.electionVote(voteInput, token);
         }
         return new GenericOutput("OK");
     }
@@ -112,7 +112,7 @@ public class VoteService {
         try{
             VoterOutput voterOutput = voterClientService.getById(voteInput.getVoterId());
             if(voterClientService.getById(voteInput.getVoterId()) == null){
-                throw new GenericOutputException("Este eleitor não existe");
+                throw new GenericOutputException("Voter not exists");
             }
         }catch (FeignException e){
             if(e.status() == 0){
