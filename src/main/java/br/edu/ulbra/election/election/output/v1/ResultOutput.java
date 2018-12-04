@@ -8,16 +8,16 @@ import java.util.List;
 @ApiModel(description = "Result Output Information")
 public class ResultOutput {
 
+    @ApiModelProperty(example = "12", notes = "Total of Blank Votes")
+    private Long blankVotes;
     @ApiModelProperty(notes = "Election Information")
     private ElectionOutput election;
     @ApiModelProperty(notes = "Candidate Vote Information")
     private List<ElectionCandidateResultOutput> candidates;
-    @ApiModelProperty(example = "10000", notes = "Total Votes")
-    private Long totalVotes;
-    @ApiModelProperty(example = "12", notes = "Total of Blank Votes")
-    private Long blankVotes;
     @ApiModelProperty(example = "11", notes = "Total of Null Votes")
     private Long nullVotes;
+    @ApiModelProperty(example = "10000", notes = "Total Votes")
+    private Long totalVotes;
 
     public ElectionOutput getElection() {
         return election;

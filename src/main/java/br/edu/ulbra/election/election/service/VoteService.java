@@ -64,12 +64,12 @@ public class VoteService {
             }
         }
         //end of vote validation
-        System.out.println("***********************************");
+        /*System.out.println("***********************************");
         System.out.println("Voter Id: "+vote.getVoterId());
         System.out.println("VOTO NULO: "+vote.getNullVote());
         System.out.println("VOTO BRANCO: "+vote.getBlankVote());
         System.out.println("VOTO Candidato: "+vote.getCandidateId());
-        System.out.println("***********************************");
+        System.out.println("***********************************");*/
 
         voteRepository.save(vote);
 
@@ -123,6 +123,12 @@ public class VoteService {
             }
         }
     //End of the voter´s bonding and election
+
+        //Validating if Vote already voted in election
+        if(voteRepository.findFirstByVoterIdAndElection(voteInput.getVoterId(), election) != null){
+            throw new GenericOutputException("Voter Already Vote in this Election");
+        }
+
 
         return election;
     }

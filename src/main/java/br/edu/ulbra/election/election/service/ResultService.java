@@ -56,10 +56,10 @@ public class ResultService {
                 }
             }
         }
-        resultOutput.setElection(modelMapper.map(election, ElectionOutput.class));
-        resultOutput.setNullVotes(nullVotesTotal);
         resultOutput.setBlankVotes(blanckVotesTotal);
         resultOutput.setCandidates(valideVotes);
+        resultOutput.setElection(modelMapper.map(election, ElectionOutput.class));
+        resultOutput.setNullVotes(nullVotesTotal);
         resultOutput.setTotalVotes((long) list.size());
         return resultOutput;
     }
