@@ -1,6 +1,7 @@
 package br.edu.ulbra.election.election.service;
 
 import br.edu.ulbra.election.election.client.CandidateClientService;
+import br.edu.ulbra.election.election.client.LoginClientService;
 import br.edu.ulbra.election.election.client.VoterClientService;
 import br.edu.ulbra.election.election.exception.GenericOutputException;
 import br.edu.ulbra.election.election.input.v1.VoteInput;
@@ -24,17 +25,26 @@ public class VoteService {
     private final ElectionRepository electionRepository;
     private final VoterClientService voterClientService;
     private final CandidateClientService candidateClientService;
+    private final LoginClientService loginClientService;
 
     @Autowired
-    public VoteService(VoteRepository voteRepository, ElectionRepository electionRepository, VoterClientService voterClientService, CandidateClientService candidateClientService){
+    public VoteService(VoteRepository voteRepository, ElectionRepository electionRepository, VoterClientService voterClientService, CandidateClientService candidateClientService, LoginClientService loginClientService){
         this.voteRepository = voteRepository;
         this.electionRepository = electionRepository;
         this.voterClientService = voterClientService;
         this.candidateClientService = candidateClientService;
+        this.loginClientService = loginClientService;
     }
 
     public GenericOutput electionVote(VoteInput voteInput, String token){
         Election election = validateInput(voteInput.getElectionId(), voteInput);
+
+        //Checking token validation
+        if(token == null){
+            throw new GenericOutputException("Insert Token");
+        }
+        checkTokenVoter(voteInput.getVoterId(), token);
+
         Vote vote = new Vote();
         vote.setElection(election);
         vote.setVoterId(voteInput.getVoterId());
@@ -129,7 +139,23 @@ public class VoteService {
             throw new GenericOutputException("Voter Already Vote in this Election");
         }
 
-
         return election;
     }
+    public void checkTokenVoter(Long voterId, String token){
+        try{
+            VoterOutput voterOutput = loginClientService.checkToken(token);
+            if(voterOutput == null || voterOutput.getId() != voterId){
+                throw new GenericOutputException("Invalid Token");
+            }
+        }catch (FeignException e){
+            System.out.println(e.getMessage());
+            if(e.status() == 0){
+                throw new GenericOutputException("Login Service Not Found");
+            }
+            if (e.status() == 500) {
+                throw new GenericOutputException("Invalid Login");
+            }
+        }
+    }
+
 }
