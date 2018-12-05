@@ -110,6 +110,13 @@ public class VoteService {
 
 
     public GenericOutput multiple(List<VoteInput> voteInputList, String token){
+        Long checkVotersId = voteInputList.get(0).getVoterId();
+        for (VoteInput voteInput : voteInputList){
+            if(checkVotersId != voteInput.getVoterId()){
+                throw new GenericOutputException("Invalid Voter Id");
+            }
+        }
+
         for (VoteInput voteInput : voteInputList){
             this.electionVote(voteInput, token);
         }
