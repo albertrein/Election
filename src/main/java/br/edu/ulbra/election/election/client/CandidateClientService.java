@@ -28,6 +28,10 @@ public class CandidateClientService {
         return this.candidateClient.getById(candidateId);
     }
 
+    public CandidateOutput getByNumberAndElection(Long electionId, Long candidateNumber){
+        return candidateClient.getByNumberAndElection(electionId, candidateNumber);
+    }
+
     @FeignClient(value="candidate-service", url="http://localhost:8082")
     public interface CandidateClient{
 
@@ -39,6 +43,9 @@ public class CandidateClientService {
 
         @GetMapping("/v1/candidate/candidatenumber/{candidateNumber}")
         Long getCandidateIdByCandidateNumber(@PathVariable(name = "candidateNumber") Long candidateNumber);
+
+        @GetMapping("/getByNumberAndElection/{electionId}/{candidateNumber}")
+        CandidateOutput getByNumberAndElection(@PathVariable(name = "electionId") Long electionId, @PathVariable(name = "candidateNumber") Long candidateNumber);
 
     }
 }
