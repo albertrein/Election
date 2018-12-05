@@ -44,29 +44,7 @@ public class VoteService {
             throw new GenericOutputException("Insert Token");
         }
         checkTokenVoter(voteInput.getVoterId(), token);
-        Vote vote = new Vote();
-        vote.setElection(election);
-        vote.setVoterId(voteInput.getVoterId());
 
-        vote.setNullVote(false);
-        if (voteInput.getCandidateNumber() == null){
-            vote.setBlankVote(true);
-        } else {
-            vote.setBlankVote(false);
-            try {
-                candidateClientService.getByNumberAndElection(voteInput.getElectionId(), voteInput.getCandidateNumber());
-            } catch (FeignException ex){
-                if (ex.status() == 500){
-                    vote.setNullVote(true);
-                }
-            }
-        }
-
-        voteRepository.save(vote);
-
-        return new GenericOutput("OK");
-    }
-    /*
         Vote vote = new Vote();
         vote.setElection(election);
         vote.setVoterId(voteInput.getVoterId());
@@ -101,12 +79,11 @@ public class VoteService {
         System.out.println("VOTO NULO: "+vote.getNullVote());
         System.out.println("VOTO BRANCO: "+vote.getBlankVote());
         System.out.println("VOTO Candidato: "+vote.getCandidateId());
-        System.out.println("***********************************");*/
-      /*  voteRepository.save(vote);
+        System.out.println("***********************************");
+        voteRepository.save(vote);*/
 
         return new GenericOutput("OK");
     }
-    */
 
 
     public GenericOutput multiple(List<VoteInput> voteInputList, String token){
