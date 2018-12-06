@@ -80,7 +80,8 @@ public class VoteService {
         System.out.println("VOTO BRANCO: "+vote.getBlankVote());
         System.out.println("VOTO Candidato: "+vote.getCandidateId());
         System.out.println("***********************************");
-        voteRepository.save(vote);*/
+        */
+        voteRepository.save(vote);
 
         return new GenericOutput("OK");
     }
